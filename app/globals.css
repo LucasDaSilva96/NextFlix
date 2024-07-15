@@ -4,6 +4,6 @@
 
 @layer base {
   body {
-    @apply bg-zinc-900 h-full overflow-x-hidden;
+    @apply bg-zinc-900 w-full min-h-screen overflow-x-hidden relative;
   }
 }
