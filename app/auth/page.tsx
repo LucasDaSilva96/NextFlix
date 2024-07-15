@@ -1,7 +1,9 @@
 'use client';
 import Input from '@/components/Input';
+import axios from 'axios';
 import Image from 'next/image';
-import React from 'react';
+import React, { useCallback } from 'react';
+import { toast } from 'react-toastify';
 
 enum Variant {
   login, // 0
@@ -14,8 +16,38 @@ export default function AuthPage() {
   const nameRef = React.useRef<HTMLInputElement>(null);
   const [variant, setVariant] = React.useState<Variant>(Variant.login);
 
-  const toggleVariant = () => {
+  const toggleVariant = useCallback(() => {
     setVariant(variant === Variant.login ? Variant.register : Variant.login);
+  }, [variant]);
+
+  const register = async () => {
+    try {
+      if (!emailRef.current || !passwordRef.current || !nameRef.current) {
+        throw new Error('Missing fields');
+      }
+
+      await axios.post(
+        '/api/auth',
+        {
+          email: emailRef.current.value,
+          password: passwordRef.current.value,
+          name: nameRef.current.value,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      toast.success('Account created successfully');
+      emailRef.current.value = '';
+      passwordRef.current.value = '';
+      nameRef.current.value = '';
+    } catch (err) {
+      console.log(err);
+      toast.error('Please fill in all fields and try again');
+    }
   };
 
   return (
@@ -61,9 +93,19 @@ export default function AuthPage() {
                 label='Password'
                 automaticComplete='password'
               />
-              <button className='bg-red-600 text-slate-50 text-lg font-semibold rounded-md py-2 mt-6 hover:bg-red-500 transition-colors duration-150'>
-                {variant === 0 ? 'Login' : 'Sign up'}
-              </button>
+              {variant === 0 && (
+                <button className='bg-red-600 text-slate-50 text-lg font-semibold rounded-md py-2 mt-6 hover:bg-red-500 transition-colors duration-150'>
+                  Login
+                </button>
+              )}
+              {variant === 1 && (
+                <button
+                  onClick={register}
+                  className='bg-red-600 text-slate-50 text-lg font-semibold rounded-md py-2 mt-6 hover:bg-red-500 transition-colors duration-150'
+                >
+                  Sign up
+                </button>
+              )}
             </div>
             <p className='text-slate-50 mt-8 '>
               {variant === 0
