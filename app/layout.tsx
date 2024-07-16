@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description: 'A Netflix clone built with Next.js',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
