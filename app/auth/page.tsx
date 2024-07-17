@@ -6,6 +6,9 @@ import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 import React, { useCallback } from 'react';
 import { toast } from 'react-toastify';
+import { FcGoogle } from 'react-icons/fc';
+import { BsGithub } from 'react-icons/bs';
+import { useRouter } from 'next/navigation';
 
 enum Variant {
   login, // 0
@@ -25,6 +28,7 @@ export default function AuthPage() {
   const nameRef = React.useRef<HTMLInputElement>(null);
   const [variant, setVariant] = React.useState<Variant>(Variant.login);
   const [loading, setLoading] = React.useState<boolean>(false);
+  const router = useRouter();
 
   const toggleVariant = useCallback(() => {
     setVariant(variant === Variant.login ? Variant.register : Variant.login);
@@ -60,9 +64,17 @@ export default function AuthPage() {
       emailRef.current.value = '';
       passwordRef.current.value = '';
       nameRef.current.value = '';
+      setVariant(Variant.login);
     } catch (err) {
-      console.log(err);
-      toast.error('Please fill in all fields and try again');
+      if (
+        err instanceof Error &&
+        err.message === 'Request failed with status code 400'
+      ) {
+        toast.error('Email already exists. Try logging in instead');
+      } else {
+        toast.error('Please fill in all fields and try again');
+      }
+      // console.log(err);
     } finally {
       setLoading(false);
     }
@@ -83,6 +95,41 @@ export default function AuthPage() {
         throw new Error(req.error);
       }
       setLoading(false);
+      return router.push('/profiles');
+    } catch (error) {
+      const { message } = error as Error;
+      setLoading(false);
+      toast.error(message);
+    }
+  };
+
+  const handleGithubSignIn = async () => {
+    try {
+      setLoading(true);
+      const req = await signIn('github', {
+        callbackUrl: '/profiles',
+      });
+      if (req?.error) {
+        throw new Error(req.error);
+      }
+      setLoading(false);
+    } catch (error) {
+      const { message } = error as Error;
+      setLoading(false);
+      toast.error(message);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      setLoading(true);
+      const req = await signIn('google', {
+        callbackUrl: '/profiles',
+      });
+      if (req?.error) {
+        throw new Error(req.error);
+      }
+      setLoading(false);
     } catch (error) {
       const { message } = error as Error;
       setLoading(false);
@@ -94,18 +141,18 @@ export default function AuthPage() {
     <>
       <section className='relative min-h-screen w-full bg-[url("/images/hero.jpg")] bg-no-repeat bg-center bg-fixed bg-cover'>
         <div className='bg-black w-full min-h-screen bg-opacity-50 '>
-          <nav className='px-8 py-2 opacity-100'>
+          <nav className='px-8 md:py-2 opacity-100 k'>
             <Image
               src='/images/logo.png'
               alt='Nextflix logo'
               width='100'
               height='0'
               priority
-              className='w-[150px] h-auto'
+              className='max-w-[150px] max-h-[60px] md:max-w-[200px] md:max-h-[80px] h-auto w-auto'
             />
           </nav>
-          <div className='flex justify-center px-1 sm:px-6 -mt-4'>
-            <div className='bg-black bg-opacity-75 px-16 py-16 self-center mt-4 rounded-lg max-w-[550px] w-full'>
+          <div className={`flex justify-center px-1 sm:px-6`}>
+            <div className='bg-black bg-opacity-75 px-16 py-8  self-center mt-4 rounded-lg max-w-[550px] w-full'>
               <h1 className='text-slate-50 text-4xl mb-8 font-semibold'>
                 {variant === 0 ? 'Sign in' : 'Register'}
               </h1>
@@ -151,7 +198,21 @@ export default function AuthPage() {
                   </button>
                 )}
               </div>
-              <p className='text-slate-50 mt-8 '>
+              <div className='w-full flex items-center justify-center pt-8 gap-6'>
+                <div
+                  onClick={handleGoogleSignIn}
+                  className='w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-85 transition-opacity duration-150'
+                >
+                  <FcGoogle size={30} />
+                </div>
+                <div
+                  onClick={handleGithubSignIn}
+                  className='w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-85 transition-opacity duration-150'
+                >
+                  <BsGithub size={30} />
+                </div>
+              </div>
+              <p className='text-slate-50 mt-4 '>
                 {variant === 0
                   ? 'First time using NextFlix?'
                   : 'Already have an account?'}
