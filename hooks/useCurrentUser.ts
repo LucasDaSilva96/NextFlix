@@ -1,7 +1,7 @@
 import swr from 'swr';
 import fetcher from '@/lib/fetcher';
 
-type CurrentUser = {
+export type CurrentUser = {
   id: string;
   email: string;
   name: string;

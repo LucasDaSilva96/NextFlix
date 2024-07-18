@@ -1,0 +1,34 @@
+[
+  {
+    "title": "Big Buck Bunny",
+    "description": "Three animals - a rabbit, a squirrel, and a turtle - are friends. The rabbit gets bullied by the other two animals and decides to get back at them by playing a prank on them. The rabbit gets the squirrel and the turtle to play a game of hide and seek. The rabbit hides and the squirrel and the turtle try to find him. The rabbit then jumps out and scares the squirrel and the turtle. The rabbit then runs away and the squirrel and the turtle chase after him. The rabbit then jumps into a hole and the squirrel and the turtle follow him. The rabbit then jumps out of the hole and the squirrel and the turtle are stuck in the hole. The rabbit then laughs at the squirrel and the turtle and runs away.",
+    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Big_buck_bunny_poster_big.jpg",
+    "genre": "Animation",
+    "duration": "10 minutes"
+  },
+  {
+    "title": "Sintel",
+    "description": "A lonely young woman, Sintel, helps and befriends a dragon, whom she calls Scales. When Scales is kidnapped by an adult dragon, Sintel decides to embark on a dangerous quest to find her lost friend.",
+    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Sintel_Poster_Paintover_clean.jpg",
+    "genre": "Adventure",
+    "duration": "15 minutes"
+  },
+  {
+    "title": "Tears of Steel",
+    "description": "Set in a dystopian future, the short film features a group of warriors and scientists who gather at the Oude Kerk in Amsterdam in a desperate attempt to save the world from destructive robots.",
+    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/7/70/Tos-poster.png",
+    "genre": "Action",
+    "duration": "12 minutes"
+  },
+  {
+    "title": "Tears of Steel",
+    "description": "An old man, Proog, guides the young Emo through a giant surreal machine, in which the rooms have no clear transition to each other. After Proog saves Emo from flying plugs in a room consisting of a gigantic telephone switchboard, they run through a dark room filled with electrical cables and flee from a flock of bird-like robots. In the next room, Emo is tempted to answer a ringing phone, but Proog stops him and reveals a trap. The room is also occupied by a robot resembling a self-operating typewriter, which Emo appears to laugh at.",
+    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/0/0c/ElephantsDreamPoster.jpg",
+    "genre": "Sci-Fi",
+    "duration": "15 minutes"
+  }
+]
