@@ -20,7 +20,7 @@ export default function FavoriteButton({ movieId }: buttonProps) {
     const list = user?.favoritesIds || [];
 
     return list.includes(movieId);
-  }, [user.favoritesIds, movieId]);
+  }, [user?.favoritesIds, movieId]);
 
   const toggleFavorite = useCallback(async () => {
     let response: any;

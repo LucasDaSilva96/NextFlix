@@ -3,6 +3,7 @@ import useBillboard from '@/hooks/useBillboard';
 import React from 'react';
 import { CiCircleInfo } from 'react-icons/ci';
 import SmallLoader from './SmallLoader';
+import PlayButton from './PlayButton';
 
 export default function Billboard() {
   const { data, error, isLoading } = useBillboard();
@@ -29,10 +30,13 @@ export default function Billboard() {
         <p className='text-slate-50 text-[8px] sm:text-base  mt-3 md:mt-8 max-w-[60%] drop-shadow-xl'>
           {data.description.split(' ').slice(0, 40).join(' ')}...
         </p>
-        <button className='bg-red-700 text-white flex items-center gap-1 p transition-all  text-sm md:text-base mt-3 md:mt-8 px-4 py-2 rounded-md font-semibold hover:bg-opacity-75'>
-          <CiCircleInfo />
-          <p>More info</p>
-        </button>
+        <div className='flex items-center gap-2 mt-3 md:mt-8'>
+          <PlayButton movieId={data.id} />
+          <button className='bg-neutral-500 text-white flex items-center gap-1 p transition-all  text-sm md:text-base  px-4 py-2 rounded-md font-semibold hover:bg-opacity-75'>
+            <CiCircleInfo />
+            <p>More info</p>
+          </button>
+        </div>
       </div>
       {isLoading && <SmallLoader size={36} />}
     </article>
