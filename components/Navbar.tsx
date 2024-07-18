@@ -39,8 +39,6 @@ export default function Navbar({ user }: NavbarProps) {
 
     window.addEventListener('scroll', handleScroll);
 
-    console.log(background);
-
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
