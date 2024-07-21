@@ -53,7 +53,7 @@ const handler = NextAuth({
       },
     }),
   ],
-  debug: process.env.NODE_ENV === 'development',
+  debug: false,
   adapter: PrismaAdapter(prismadb),
 });
 

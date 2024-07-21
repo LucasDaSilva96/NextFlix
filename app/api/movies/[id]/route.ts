@@ -1,23 +1,26 @@
 import prismadb from '@/lib/prismadb';
 import serverAuth from '@/lib/serverAuth';
-import { NextApiRequest } from 'next';
 
-export async function GET(req: NextApiRequest, res: Response) {
+export async function GET(req: Request, res: Response) {
   try {
-    await serverAuth();
     const id = req.url?.split('/')[5];
+    if (id !== 'undefined') {
+      await serverAuth();
 
-    const movie = await prismadb.movie.findUnique({
-      where: {
-        id: id,
-      },
-    });
+      const movie = await prismadb.movie.findUnique({
+        where: {
+          id: id,
+        },
+      });
 
-    if (!movie) {
-      return new Response('Movie not found', { status: 404 });
+      if (!movie) {
+        return new Response('Movie not found', { status: 404 });
+      }
+
+      return new Response(JSON.stringify(movie), { status: 200 });
+    } else {
+      return new Response('Movie not found', { status: 200 });
     }
-
-    return new Response(JSON.stringify(movie), { status: 200 });
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {

@@ -14,7 +14,7 @@ export default function MovieList({ title, movies }: MovieListProps) {
         <h2 className='text-slate-50 text-md md:text-xl lg:text-2xl font-semibold mb-4'>
           {title}
         </h2>
-        <div className='grid grid-cols-4 gap-2'>
+        <div className='flex items-center gap-4 flex-wrap pb-5'>
           {movies &&
             movies.map((movie) => {
               return <MovieCard key={movie.id} movie={movie} />;

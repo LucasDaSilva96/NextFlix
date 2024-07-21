@@ -1,6 +1,5 @@
 import prismadb from '@/lib/prismadb';
 import serverAuth from '@/lib/serverAuth';
-import { NextApiRequest } from 'next';
 
 export async function POST(req: Request, res: Response) {
   try {
@@ -43,7 +42,7 @@ export async function POST(req: Request, res: Response) {
   }
 }
 
-export async function DELETE(req: Response, res: Response) {
+export async function DELETE(req: Request, res: Response) {
   try {
     const user = await serverAuth();
     const body = await req.json();
@@ -83,7 +82,7 @@ export async function DELETE(req: Response, res: Response) {
   }
 }
 
-export async function GET(req: NextApiRequest, res: Response) {
+export async function GET(_req: Request, res: Response) {
   try {
     const user = await serverAuth();
 

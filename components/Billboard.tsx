@@ -1,21 +1,41 @@
 'use client';
 import useBillboard from '@/hooks/useBillboard';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CiCircleInfo } from 'react-icons/ci';
 import SmallLoader from './SmallLoader';
 import PlayButton from './PlayButton';
+import useInfoModal from '@/hooks/useInfoModal';
 
 export default function Billboard() {
-  const { data, error, isLoading } = useBillboard();
+  const { data, isLoading } = useBillboard();
+  const { openModal } = useInfoModal();
+
+  const [screenWidth, setScreenWidth] = React.useState(0);
+
+  useEffect(() => {
+    setScreenWidth(window.innerWidth);
+    window.addEventListener('resize', () => {
+      setScreenWidth(window.innerWidth);
+    });
+
+    return () => {
+      window.removeEventListener('resize', () => {
+        setScreenWidth(window.innerWidth);
+      });
+    };
+  }, []);
 
   if (!data) {
     return null;
   }
+  const handleOpenModal = () => {
+    openModal(data.id);
+  };
 
   return (
     <article className='relative h-[56.25vw] xl:h-[45.25vw]'>
       <video
-        autoPlay
+        autoPlay={screenWidth > 768 ? true : false}
         muted
         loop
         poster={data.thumbnailUrl}
@@ -32,9 +52,9 @@ export default function Billboard() {
         </p>
         <div className='flex items-center gap-2 mt-3 md:mt-8'>
           <PlayButton movieId={data.id} />
-          <button className='bg-neutral-500 text-white flex items-center gap-1 p transition-all  text-sm md:text-base  px-4 py-2 rounded-md font-semibold hover:bg-opacity-75'>
+          <button className='bg-neutral-50/50 rounded-md py-[6.5px] px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex items-center justify-center gap-1 hover:bg-slate-50 transition-colors'>
             <CiCircleInfo />
-            <p>More info</p>
+            <p onClick={handleOpenModal}>More info</p>
           </button>
         </div>
       </div>

@@ -182,12 +182,26 @@ export default function AuthPage() {
                   automaticComplete='password'
                 />
                 {variant === 0 && (
-                  <button
-                    onClick={login}
-                    className='bg-red-600 text-slate-50 text-lg font-semibold rounded-md py-2 mt-6 hover:bg-red-500 transition-colors duration-150'
-                  >
-                    Login
-                  </button>
+                  <>
+                    <button
+                      onClick={login}
+                      className='bg-red-600 text-slate-50 text-lg font-semibold rounded-md py-2 mt-6 hover:bg-red-500 transition-colors duration-150'
+                    >
+                      Login
+                    </button>
+
+                    <button
+                      onClick={async () => {
+                        emailRef.current!.value = process.env.DEMO_USER_EMAIL!;
+                        passwordRef.current!.value =
+                          process.env.DEMO_USER_PASSWORD!;
+                        await login();
+                      }}
+                      className='bg-slate-50 text-black text-lg font-semibold rounded-md py-2 mt-6 hover:bg-slate-50/70 transition-colors duration-150'
+                    >
+                      Demo User
+                    </button>
+                  </>
                 )}
                 {variant === 1 && (
                   <button

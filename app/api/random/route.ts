@@ -1,8 +1,8 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import prismadb from '@/lib/prismadb';
 import serverAuth from '@/lib/serverAuth';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextApiRequest, res: Response) {
+export async function GET(req: NextRequest, res: NextResponse) {
   try {
     await serverAuth();
 
@@ -14,17 +14,13 @@ export async function GET(req: NextApiRequest, res: Response) {
       skip: randomIndex,
     });
 
-    return new Response(JSON.stringify(randomMovie[0]), { status: 200 });
+    return NextResponse.json(randomMovie[0], { status: 200 });
   } catch (e) {
     console.log(e);
     if (e instanceof Error) {
-      return new Response(JSON.stringify({ error: e.message }), {
-        status: 400,
-      });
+      return NextResponse.json({ error: e.message }, { status: 400 });
     } else {
-      return new Response(JSON.stringify({ error: 'An error occurred' }), {
-        status: 400,
-      });
+      return NextResponse.json({ error: 'An error occurred' }, { status: 400 });
     }
   }
 }
