@@ -13,6 +13,10 @@ This is a Full Stack Netflix Clone built using React, Tailwind CSS, Next.js, Pri
 - [Installation](#installation)
 - [Usage](#usage)
 
+## Demo
+
+A live demo of the project can be found at [www.nextFlix.com](https://next-flix-peach.vercel.app/).
+
 ## Features
 
 - User Authentication with NextAuth
