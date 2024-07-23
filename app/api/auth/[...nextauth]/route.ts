@@ -6,6 +6,7 @@ import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 
+// This is the API route that NextAuth uses
 const handler = NextAuth({
   session: {
     strategy: 'jwt',
